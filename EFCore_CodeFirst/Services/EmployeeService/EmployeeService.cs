@@ -11,12 +11,10 @@ namespace EFCore_CodeFirst.Services.EmployeeService
         //DataContext dataContext = new DataContext();
         DataContext dataContext;
 
-        private const string _connectionString = "Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True";
-
         public EmployeeService()
         {
             //Injecting connection string to Dbcontext 
-            var options = new DbContextOptionsBuilder<DataContext>().UseSqlServer(new SqlConnection(_connectionString)).Options;
+            var options = DbContextHelper.GetDbContextOptions();
 
             dataContext = new DataContext(options);
         }
