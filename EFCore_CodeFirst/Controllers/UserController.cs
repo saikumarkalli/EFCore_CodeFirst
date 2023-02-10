@@ -3,6 +3,7 @@ using EFCore_CodeFirst.Context;
 using EFCore_CodeFirst.Services.EmployeeService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace EFCore_CodeFirst.Controllers
@@ -11,7 +12,6 @@ namespace EFCore_CodeFirst.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        DataContext dataContext = new DataContext();
 
         private readonly IEmployeeService _employeeService;
         public UserController(IEmployeeService employeeService)

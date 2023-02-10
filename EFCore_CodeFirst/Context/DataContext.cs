@@ -6,10 +6,15 @@ namespace EFCore_CodeFirst.Context
 {
     public class DataContext : DbContext
     {
-        public DataContext()
-        {
+        private  const string _connectionString = "Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True";
+        //public DataContext()
+        //{
 
-        }
+        //}
+        //public DataContext(): base(_connectionString)
+        //{
+
+        //}
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
 
@@ -18,7 +23,7 @@ namespace EFCore_CodeFirst.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
-            optionsBuilder.UseSqlServer("Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer(_connectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

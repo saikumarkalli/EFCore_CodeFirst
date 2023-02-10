@@ -2,12 +2,24 @@
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using AF_EF.Models;
+using Microsoft.Data.SqlClient;
 
 namespace EFCore_CodeFirst.Services.EmployeeService
 {
     public class EmployeeService : IEmployeeService
     {
-        DataContext dataContext = new DataContext();
+        //DataContext dataContext = new DataContext();
+        DataContext dataContext;
+
+        private const string _connectionString = "Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True";
+
+        public EmployeeService()
+        {
+            //Injecting connection string to Dbcontext 
+            var options = new DbContextOptionsBuilder<DataContext>().UseSqlServer(new SqlConnection(_connectionString)).Options;
+
+            dataContext = new DataContext(options);
+        }
 
         public async Task<List<Employee>> GetData()
         {
