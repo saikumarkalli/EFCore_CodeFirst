@@ -10,10 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDbContext<DataContext>(x => x.UseNpgsql("Server=localhost;Database=Pratice;Port=5433;UserId=postgres;Password=sa@123;Trust Server Certificate=true;Integrated Security=true"));
 
 //SQL
-//builder.Services.AddDbContext<DataContext>(options =>
-//{
-//    options.UseSqlServer("Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True");
-//});
+builder.Services.AddDbContext<DataContext>(options =>
+{
+    options.UseSqlServer("Data Source=L201412;Initial Catalog=Pratice;Integrated Security=True;TrustServerCertificate=True");
+});
 
 
 //DI for Services...

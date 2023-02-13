@@ -9,19 +9,19 @@ namespace EFCore_CodeFirst.Services.EmployeeService
     public class EmployeeService : IEmployeeService
     {
         //DataContext dataContext = new DataContext();
-        DataContext dataContext;
+        DataContext _dataContext;
 
-        public EmployeeService()
+        public EmployeeService(DataContext dataContext)
         {
             //Injecting connection string to Dbcontext 
-            var options = DbContextHelper.GetDbContextOptions();
-
-            dataContext = new DataContext(options);
+            //var options = DbContextHelper.GetDbContextOptions();
+            //_dataContext = new DataContext(options);
+            _dataContext = dataContext;
         }
 
         public async Task<List<Employee>> GetData()
         {
-            List<Employee> data = await dataContext.Employees.ToListAsync<Employee>();
+            List<Employee> data = await _dataContext.Employees.ToListAsync<Employee>();
             return data;
         }
 
@@ -31,7 +31,7 @@ namespace EFCore_CodeFirst.Services.EmployeeService
             Employee? data = null;
             if (id != 0)
             {
-                data = await dataContext.Employees.Where(x => x.id == id).FirstOrDefaultAsync<Employee>();
+                data = await _dataContext.Employees.Where(x => x.id == id).FirstOrDefaultAsync<Employee>();
 
                 return data;
             }
@@ -45,8 +45,8 @@ namespace EFCore_CodeFirst.Services.EmployeeService
         {
             if (employee != null)
             {
-                await dataContext.Employees.AddAsync(employee);
-                await dataContext.SaveChangesAsync();
+                await _dataContext.Employees.AddAsync(employee);
+                await _dataContext.SaveChangesAsync();
                 return true;
             }
             else return false;
@@ -56,7 +56,7 @@ namespace EFCore_CodeFirst.Services.EmployeeService
         {
             if (employee != null)
             {
-                var empRecord = dataContext.Employees.Where(x => x.id == employee.id).FirstOrDefault();
+                var empRecord = _dataContext.Employees.Where(x => x.id == employee.id).FirstOrDefault();
 
                 if (empRecord != null)
                 {
@@ -64,8 +64,8 @@ namespace EFCore_CodeFirst.Services.EmployeeService
                     empRecord.emailid = employee.emailid;
                     empRecord.phonenumber = employee.phonenumber;
 
-                    dataContext.Employees.Update(empRecord);
-                    await dataContext.SaveChangesAsync();
+                    _dataContext.Employees.Update(empRecord);
+                    await _dataContext.SaveChangesAsync();
                     return true;
                 }
                 else return false;
@@ -77,12 +77,12 @@ namespace EFCore_CodeFirst.Services.EmployeeService
         {
             if (id != 0)
             {
-                var empRecord = dataContext.Employees.Where(x => x.id == id).FirstOrDefault();
+                var empRecord = _dataContext.Employees.Where(x => x.id == id).FirstOrDefault();
 
                 if (empRecord != null)
                 {
-                    dataContext.Employees.Remove(empRecord);
-                    await dataContext.SaveChangesAsync();
+                    _dataContext.Employees.Remove(empRecord);
+                    await _dataContext.SaveChangesAsync();
                     return true;
                 }
                 else return false;
