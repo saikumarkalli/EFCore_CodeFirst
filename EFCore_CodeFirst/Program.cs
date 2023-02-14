@@ -18,6 +18,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 //DI for Services...
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IDataContext, DataContext>();
 
 
 

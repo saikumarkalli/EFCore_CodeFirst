@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EFCore_CodeFirst.Context
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IDataContext
     {
         public DataContext() { }
 
@@ -22,6 +22,11 @@ namespace EFCore_CodeFirst.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
+        }
+
+        public async Task<int> Save()
+        {
+            return await SaveChangesAsync();
         }
 
         public DbSet<Employee> Employees { get; set; }
